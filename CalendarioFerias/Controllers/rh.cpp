@@ -7,32 +7,80 @@
 #include <vector>
 
 
-
+// Adiciona um novo colaborador à lista
 void adicionarColaborador(std::vector<Colaborador>& lista){
     
     std::string nomeNovo;
+    int idNovo;
+    std::string deptNovo;
     
+    // Solicita o ID do colaborador
+    std::cout << "Introduza o ID do colaborador: ";
+    if (!(std::cin >> idNovo)) {
+        std::cout << "ID invalido.\n";
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        return;
+    }
+    std::cin.ignore(1000, '\n'); // Limpa o buffer do teclado
+
+    // Verifica se já existe um colaborador com este ID
+    Colaborador* colabId = encontrarColaboradorPorId(lista, idNovo);
+    if (colabId != nullptr) {
+        std::cout << "\033[31m" << "Ja existe um colaborador com esse ID!\n" << "\033[0m";
+        return;
+    }
+
+    // Solicita o nome
     std::cout << "Introduza o nome do colaborador a adicionar: ";
-    std::cin.ignore(1000, '\n'); // limpar buffer
-    // Lê a linha inteira, incluindo espaços
     std::getline(std::cin, nomeNovo);
 
+    // Verifica se já existe um colaborador com este nome (opcional, mas boa prática)
     Colaborador* colaborador = encontrarColaborador(lista, nomeNovo);
 
     if (colaborador == nullptr){
+        // Solicita o departamento
+        std::cout << "Introduza o departamento: ";
+        std::getline(std::cin, deptNovo);
+
+        // Cria o novo objeto Colaborador e preenche os dados
         Colaborador novoColaborador;
-
+        novoColaborador.id = idNovo;
         novoColaborador.nome = nomeNovo;
+        novoColaborador.departamento = deptNovo;
 
+        // Adiciona à lista principal
         lista.push_back(novoColaborador);
 
         std::cout << "\033[32m" << "Colaborador adicionado com sucesso!\n" << "\033[0m";
         
     } else {
-
         std::cout << "\033[31m" << "Ja existe um colaborador com esse nome!\n" << "\033[0m";
     }
 
+}
+
+// Encontra um colaborador pelo nome (case-insensitive)
+Colaborador* encontrarColaborador(std::vector<Colaborador>& lista, const std::string& nome){
+    for (int i = 0; i < lista.size(); i++){
+        std::string nomeLower, nomeListaLower;
+        
+        // Converte o nome procurado para minúsculas
+        for(int j=0 ; j<nome.size(); j++){
+            nomeLower += tolower(nome[j]);
+        }
+
+        // Converte o nome na lista para minúsculas
+        for(int j=0 ; j<lista[i].nome.size(); j++){
+            nomeListaLower += tolower(lista[i].nome[j]);
+        }
+
+        // Compara
+        if (nomeLower == nomeListaLower){
+            return &lista[i]; // Retorna ponteiro para o colaborador encontrado
+        }
+    }
+    return nullptr; // Não encontrado
 }
 
 void listarColaboradores(const std::vector<Colaborador>& lista){
