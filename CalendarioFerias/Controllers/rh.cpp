@@ -184,6 +184,8 @@ void marcarAusencia(std::vector<Colaborador>& lista){
 
 }
 
+void buscaColaborador();
+
 void limparEcra() {
 #ifdef _WIN32 // Esta macro é definida pelo compilador se estiver no Windows
     std::system("cls");

@@ -89,6 +89,7 @@ std::string nomeMes(int mes){
 
 void pausaLer();
 void calendarioColaborador(std::vector<Colaborador>& lista);
+void relatorioMensal(std::vector<Colaborador>& lista);
 const std::string filename = "DBrh.csv";
 
 int main(){
@@ -101,7 +102,7 @@ int main(){
     {
         limparEcra();
         std::cout << "\n=============" << "\033[34m" << " MENU " << "\033[0m" << "=============" << std::endl;
-        std::cout << "1. Adicionar Colaborador\n2. Listar Colaboradores\n3. Marcar/Desmarcar Ausencia\n4. Ver Calendario Mensal\n5. Guardar e sair" << std::endl;
+        std::cout << "1. Adicionar Colaborador\n2. Listar Colaboradores\n3. Marcar/Desmarcar Ausencia e ferias\n4. Ver Calendario Mensal de colaborador\n5. Buscar colaborador por ID ou nome\n6. Gerir formacoes/cursos de um colaborador\n7. Gerir notas/observacoes de um colaborador\n8. Relatorios mensais\n9. Estatisticas por departamento\n10. Dashboard resumido\n0. Guardar e sair" << std::endl;
         std::cout << "================================\n" << std::endl;
         std::cout << "Escolha uma opcao: ";
         
@@ -117,6 +118,7 @@ int main(){
         switch (op)
         {
         case 1:
+        // 1. Adicionar Colaborador
             adicionarColaborador(colaboradores);
             std::cout << "\nPressione Enter para continuar...";
             std::cin.get();
@@ -124,38 +126,67 @@ int main(){
         
 
         case 2:
+        // 2. Listar Colaboradores
             listarColaboradores(colaboradores);
             pausaLer();
             break;
 
 
         case 3:
+        // 3. Marcar/Desmarcar Ausencia e ferias
             marcarAusencia(colaboradores);
             pausaLer();
             break;
 
             
         case 4:
+        // 4. Ver Calendario Mensal de colaborador
             calendarioColaborador(colaboradores);          
             pausaLer();
             break;
 
-            
         case 5:
+        // 5. Buscar colaborador por ID ou nome
+            pausaLer();
+            break;
+        
+        case 6:
+        // 6. Gerir formações/cursos de um colaborador
+            pausaLer();
+            break;
+        
+        case 7:
+        // 7. Gerir notas/observações de um colaborador
+            pausaLer();
+            break;
+
+        case 8:
+        // 8. Relatórios mensais
+            relatorioMensal(colaboradores);
+            pausaLer();
+            break;
+
+        case 9:
+        // 9. Estatísticas por departamento
+            pausaLer();
+            break;
+
+        case 10:
+        // 10. Dashboard resumido
+            pausaLer();
+            break;
+    
+        case 0:
             guardarDados(colaboradores, filename);
             std::cout << "Dados guardados. A sair...\n";
             break;
-
-        case 0: // Nào faz nada, apenas permite a redefinição do op = 0
-            break;
-
 
         default:
             std::cout << "Opcao invalida! Introduza um valor de 1 a 5.";
             break;
         }
         
-    } while (op != 5);
+    } while (op != 0);
     
 
     return 0;
@@ -193,4 +224,71 @@ void calendarioColaborador(std::vector<Colaborador>& lista){
     } else {
         std::cout << "Colaborador nao encontrado.\n";
     }
+}
+
+// void calendarioColaboradores(std::vector<Colaborador>& lista){
+   
+//     for (int i=0; i < lista.size(); i++){
+//         Colaborador colab = lista[i];
+
+//         int mes, ano;
+//         std::cout << "Introduza o mes (1-12): ";
+//         std::cin >> mes;
+//         std::cout << "Introduza o ano: ";
+//         std::cin >> ano;
+
+//         // Validação básica
+//         if (mes >= 1 && mes <= 12 && ano > 1900 && ano < 9999) {
+//             imprimirCalendario(colab, mes, ano);
+//             std::cout << std::endl;
+//         } else {
+//             std::cout << "Data invalida!\n";
+//         }
+//     }
+    
+// }
+
+void relatorioMensal(std::vector<Colaborador>& lista){
+
+        int mes, ano;
+        std::cout << "Introduza o mes (1-12): ";
+        std::cin >> mes;
+        std::cout << "Introduza o ano: ";
+        std::cin >> ano;
+        
+        for (int i=0; i < lista.size(); i++){
+        Colaborador colab = lista[i];
+        int faltas = 0;
+        int ferias = 0;
+
+        // Validação básica
+        if (mes >= 1 && mes <= 12 && ano > 1900 && ano < 9999) {
+            imprimirCalendario(colab, mes, ano);
+            std::cout << std::endl;
+
+            for (int i = 0; i < colab.falta.size(); ++i) {
+                
+                Faltas& f = colab.falta[i];
+                
+                if (f.mes == mes && f.ano == ano) {
+                    if(std::toupper(f.tipoDeFalta) == 'X'){
+                        faltas++;
+                    }
+                    if (std::toupper(f.tipoDeFalta) == 'F'){
+                        ferias++;
+                    }
+                }
+            }
+
+            std::cout << "Ferias do trabalhador neste mes: " << ferias << std::endl; 
+            std::cout << "Faltas do trabalhador neste mes: " << faltas << std::endl; 
+        } else {
+            std::cout << "Data invalida!\n";
+        }
+
+            
+
+
+    }
+
 }

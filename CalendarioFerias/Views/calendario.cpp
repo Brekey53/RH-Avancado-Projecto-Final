@@ -32,7 +32,7 @@ int diaSemana(int dia, int mes, int ano) {
 
 void imprimirCalendario(const Colaborador& colab, int mes, int ano) {
     
-    std::cout << "\n Calendario de " << nomeMes(mes) << " de " << ano << std::endl;
+    std::cout << "\n Calendario de " << nomeMes(mes) << " de " << ano << " do colaborador " << colab.nome << std::endl;
     std::cout << "---------------------------------" << std::endl;
     std::cout << " Dom Seg Ter Qua Qui Sex Sab" << std::endl;
 
