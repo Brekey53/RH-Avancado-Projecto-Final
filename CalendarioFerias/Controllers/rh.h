@@ -14,6 +14,24 @@ void listarColaboradores(const std::vector<Colaborador>& lista);
 // Função para marcar uma ausência
 void marcarAusencia(std::vector<Colaborador>& lista);
 
+// Busca colaborador e mostra detalhes
+void buscarColaborador(std::vector<Colaborador>& lista);
+
+// Mostra estatísticas por departamento
+void estatisticasDepartamento(const std::vector<Colaborador>& lista);
+
+// Mostra dashboard resumido
+void dashboardResumido(const std::vector<Colaborador>& lista);
+
+// Gere formações de um colaborador
+void gerirFormacoes(std::vector<Colaborador>& lista);
+
+// Gere notas internas de um colaborador
+void gerirNotas(std::vector<Colaborador>& lista);
+
+// Exporta relatório para ficheiro
+void exportarRelatorio(const std::vector<Colaborador>& lista);
+
 
 // --- Funções de Busca ---
 // Encontra um colaborador pelo nome
