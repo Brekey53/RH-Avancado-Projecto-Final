@@ -21,13 +21,9 @@ void adicionarColaborador(std::vector<Colaborador>& lista){
     // Calcula o novo ID automaticamente para ser único
     int idNovo = 0;
     if (!lista.empty()) {
-        for (const auto& colab : lista) {
-            if (colab.id > idNovo) {
-                idNovo = colab.id;
-            }
-        }
+        idNovo = lista.size();
     }
-    idNovo++; // Incrementa para obter o próximo ID
+    //idNovo++; // Incrementa para obter o próximo ID
 
     std::cin.ignore(1000, '\n'); // limpar buffer
     // Solicita o nome
