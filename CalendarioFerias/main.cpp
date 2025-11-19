@@ -90,6 +90,7 @@ std::string nomeMes(int mes){
 void pausaLer();
 void calendarioColaborador(std::vector<Colaborador>& lista);
 void relatorioMensal(std::vector<Colaborador>& lista);
+void imprimirRelatorioEcra(std::vector<Colaborador>& lista);
 const std::string filename = "DBrh.csv";
 
 int main(){
@@ -101,11 +102,23 @@ int main(){
     do
     {
         limparEcra();
+        // Exibição do Menu Principal
         std::cout << "\n=============" << "\033[34m" << " MENU " << "\033[0m" << "=============" << std::endl;
-        std::cout << "1. Adicionar Colaborador\n2. Listar Colaboradores\n3. Marcar/Desmarcar Ausencia e ferias\n4. Ver Calendario Mensal de colaborador\n5. Buscar colaborador por ID ou nome\n6. Gerir formacoes/cursos de um colaborador\n7. Gerir notas/observacoes de um colaborador\n8. Relatorios mensais\n9. Estatisticas por departamento\n10. Dashboard resumido\n0. Guardar e sair" << std::endl;
-        std::cout << "================================\n" << std::endl;
+        std::cout << "1. Adicionar Colaborador" << std::endl;
+        std::cout << "2. Listar Colaboradores" << std::endl;
+        std::cout << "3. Marcar Ausencia (Ferias/Falta)" << std::endl;
+        std::cout << "4. Imprimir Calendario (Mes)" << std::endl;
+        std::cout << "5. Buscar Colaborador (ID/Nome)" << std::endl;
+        std::cout << "6. Estatisticas por Departamento" << std::endl;
+        std::cout << "7. Dashboard Resumido" << std::endl;
+        std::cout << "8. Gerir Formacoes" << std::endl;
+        std::cout << "9. Gerir Notas Internas" << std::endl;
+        std::cout << "10. Exportar Relatorio (.txt)" << std::endl;
+        std::cout << "11. Imprimir Relatorio Mensal (Consola)" << std::endl;
+        std::cout << "0. Guardar e Sair" << std::endl;
+        std::cout << "============================" << std::endl;
         std::cout << "Escolha uma opcao: ";
-        
+
         if (!(std::cin >> op)){
             std::cout << "\n[ERRO] Entrada invalida! Por favor, introduza um NUMERO.\n";
             std::cin.clear();
@@ -120,62 +133,68 @@ int main(){
         case 1:
         // 1. Adicionar Colaborador
             adicionarColaborador(colaboradores);
-            std::cout << "\nPressione Enter para continuar...";
-            std::cin.get();
+            system("pause");
             break;
         
-
         case 2:
         // 2. Listar Colaboradores
             listarColaboradores(colaboradores);
-            pausaLer();
+            system("pause");
             break;
-
 
         case 3:
-        // 3. Marcar/Desmarcar Ausencia e ferias
+        // 3. Marcar Ausencia (Ferias/Falta)
             marcarAusencia(colaboradores);
-            pausaLer();
+            system("pause");
             break;
 
-            
         case 4:
-        // 4. Ver Calendario Mensal de colaborador
+        // 4. Imprimir Calendario (Mes)
             calendarioColaborador(colaboradores);          
-            pausaLer();
+            system("pause");
             break;
 
         case 5:
-        // 5. Buscar colaborador por ID ou nome
-            pausaLer();
+        // 5. Buscar Colaborador (ID/Nome)
+            buscarColaborador(colaboradores);
+            system("pause");
             break;
         
         case 6:
-        // 6. Gerir formações/cursos de um colaborador
-            pausaLer();
+        // 6. Estatisticas por Departamento
+            estatisticasDepartamento(colaboradores);
+            system("pause");
             break;
         
         case 7:
-        // 7. Gerir notas/observações de um colaborador
-            pausaLer();
+        // 7. Dashboard Resumido
+            dashboardResumido(colaboradores);
+            system("pause");
             break;
 
         case 8:
-        // 8. Relatórios mensais
-            relatorioMensal(colaboradores);
-            pausaLer();
+        // 8. Gerir Formacoes
+            gerirFormacoes(colaboradores);
+            system("pause");
             break;
 
         case 9:
-        // 9. Estatísticas por departamento
-            pausaLer();
+        // 9. Gerir Notas Internas
+            gerirNotas(colaboradores);
+            system("pause");
             break;
 
         case 10:
-        // 10. Dashboard resumido
-            pausaLer();
+        // 10. Exportar Relatorio
+            exportarRelatorio(colaboradores);
+            system("pause");
             break;
     
+        case 11:
+            imprimirRelatorioEcra(colaboradores);
+            system("pause");
+            break;
+            
         case 0:
             guardarDados(colaboradores, filename);
             std::cout << "Dados guardados. A sair...\n";
@@ -223,6 +242,25 @@ void calendarioColaborador(std::vector<Colaborador>& lista){
         }
     } else {
         std::cout << "Colaborador nao encontrado.\n";
+    }
+}
+
+void imprimirRelatorioEcra(std::vector<Colaborador>& lista){
+
+    int mes, ano;
+    std::cout << "Mes e Ano (ex: 11 2025): ";
+    std::cin >> mes >> ano;
+    std::cout << "Relatorio Mensal " << mes << "/" << ano << ":\n";
+    for(const auto& c : lista) {
+        int f = 0, x = 0;
+        for(const auto& falta : c.falta) {
+            if(falta.mes == mes && falta.ano == ano) {
+                if(toupper(falta.tipoDeFalta) == 'F') f++;
+                if(toupper(falta.tipoDeFalta) == 'X') x++;
+            }
+        }
+        if (f > 0 || x > 0)
+            std::cout << c.nome << " -> Ferias: " << f << ", Faltas: " << x << "\n";
     }
 }
 
