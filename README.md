@@ -76,4 +76,4 @@ Após a compilação bem-sucedida, execute o programa gerado:
 
 ---
 
-_Projeto desenvolvido para a disciplina de RH Avançado._
+_Projeto desenvolvido para a UC00607 - Desenvolver programas complexo em linguagem estruturada (C++)._
