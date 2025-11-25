@@ -111,7 +111,7 @@ int main(){
         std::cout << "5. Buscar Colaborador (ID/Nome)" << std::endl;
         std::cout << "6. Estatisticas por Departamento" << std::endl;
         std::cout << "7. Dashboard Resumido" << std::endl;
-        std::cout << "8. Gerir Formações" << std::endl;
+        std::cout << "8. Gerir Formacoes" << std::endl;
         std::cout << "9. Gerir Notas Internas" << std::endl;
         std::cout << "10. Exportar Relatorio (.txt)" << std::endl;
         std::cout << "11. Imprimir Relatorio Mensal (Consola)" << std::endl;
@@ -264,27 +264,6 @@ void imprimirRelatorioEcra(std::vector<Colaborador>& lista){
     }
 }
 
-// void calendarioColaboradores(std::vector<Colaborador>& lista){
-   
-//     for (int i=0; i < lista.size(); i++){
-//         Colaborador colab = lista[i];
-
-//         int mes, ano;
-//         std::cout << "Introduza o mes (1-12): ";
-//         std::cin >> mes;
-//         std::cout << "Introduza o ano: ";
-//         std::cin >> ano;
-
-//         // Validação básica
-//         if (mes >= 1 && mes <= 12 && ano > 1900 && ano < 9999) {
-//             imprimirCalendario(colab, mes, ano);
-//             std::cout << std::endl;
-//         } else {
-//             std::cout << "Data invalida!\n";
-//         }
-//     }
-    
-// }
 
 void relatorioMensal(std::vector<Colaborador>& lista){
 

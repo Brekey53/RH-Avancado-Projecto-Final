@@ -21,7 +21,13 @@ void adicionarColaborador(std::vector<Colaborador>& lista){
     // Calcula o novo ID automaticamente para ser único
     int idNovo = 0;
     if (!lista.empty()) {
-        idNovo = lista.size();
+        int maxId = -1;
+        for (const auto& colab : lista) {
+            if (colab.id > maxId) {
+                maxId = colab.id;
+            }
+        }
+        idNovo = maxId + 1;
     }
     //idNovo++; // Incrementa para obter o próximo ID
 
